@@ -61,7 +61,6 @@ func (s *UserService) Login(req dtos.LoginRequest) (*dtos.LoginResponse, error) 
 		return nil, fmt.Errorf("invalid credentials")
 	}
 
-	// Incluir el rol en el token JWT
 	token, err := pkg.GenerateJWT(user.ID.String(), string(user.Rol))
 	if err != nil {
 		return nil, err

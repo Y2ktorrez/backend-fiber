@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: fiberuser
+      DB_PASS: fiberpass
+      DB_NAME: fiberdb
+      DB_PORT: 5432
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    command: ["./main"]
+  
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fiberuser
+      POSTGRES_PASSWORD: fiberpass
+      POSTGRES_DB: fiberdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
